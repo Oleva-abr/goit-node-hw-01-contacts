@@ -45,3 +45,9 @@ function removeContact(contactId) {
 function addContact(name, email, phone) {
   // ...твой код
 }
+module.exports = {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};
