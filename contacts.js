@@ -15,25 +15,19 @@ const listContacts = async () => {
 };
 
 const getContactById = async contactId => {
-  fs.readFile(contactsPath, 'utf-8', (error, data) => {
-    if (error) {
-      return console.log(error);
-    }
+  try {
+    const content = await fs.readFile(contactsPath, 'utf-8');
 
-    const contacts = JSON.parse(data);
+    const parsedContacts = JSON.parse(content);
 
-    const contact = contacts.find(contact => {
-      if (contact.id === contactId) {
-        console.log(`Get contact by ID ${contactId}:`);
-        console.table(contact);
-        return contact;
-      }
-    });
+    const requiredContact =
+      parsedContacts.find(contact => String(contact.id) === contactId) ||
+      `Contact ID${contactId} not found`;
 
-    if (contact == null) {
-      console.log(`Contact with ID "${contactId}" not found!`);
-    }
-  });
+    console.table(requiredContact);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const removeContact = async contactId => {
