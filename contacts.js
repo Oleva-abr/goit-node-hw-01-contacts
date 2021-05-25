@@ -53,7 +53,7 @@ const removeContact = async contactId => {
   }
 };
 
-function addContact(name, email, phone) {
+const addContact = async (name, email, phone) => {
   try {
     const content = await fs.readFile(contactsPath, 'utf-8');
 
@@ -73,7 +73,7 @@ function addContact(name, email, phone) {
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 module.exports = {
   listContacts,
   getContactById,
