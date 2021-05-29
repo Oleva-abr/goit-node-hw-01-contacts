@@ -8,7 +8,8 @@ const contactsPath = path.resolve('./db/contacts.json');
 const listContacts = async () => {
   try {
     const content = await fs.readFile(contactsPath, 'utf-8');
-    console.table(JSON.parse(content));
+    const parsedContacts = JSON.parse(content);
+    return console.table(parsedContacts);
   } catch (error) {
     throw error;
   }
@@ -24,7 +25,7 @@ const getContactById = async contactId => {
       parsedContacts.find(contact => String(contact.id) === contactId) ||
       `Contact ID${contactId} not found`;
 
-    console.table(requiredContact);
+    return console.table(requiredContact);
   } catch (error) {
     throw error;
   }
@@ -41,7 +42,7 @@ const removeContact = async contactId => {
     );
 
     await fs.writeFile(contactsPath, JSON.stringify(filteredContacts, null));
-    console.log(`The contact with ID${contactId} deleted!`);
+    return console.log(`The contact with ID${contactId} deleted!`);
   } catch (error) {
     throw error;
   }
@@ -63,7 +64,7 @@ const addContact = async (name, email, phone) => {
     const updatedContacts = [...parsedContacts, newContact];
 
     await fs.writeFile(contactsPath, JSON.stringify(updatedContacts, null));
-    console.log(`The contact ${name} added!`);
+    return console.log(`The contact ${name} added!`);
   } catch (error) {
     throw error;
   }
